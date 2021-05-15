@@ -1,14 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { PersonasService } from './personas.service';
-import { CreatePersonaDto } from './dto/create-persona.dto';
-import { UpdatePersonaDto } from './dto/update-persona.dto';
+import { PersonaDto } from './dto/persona.dto';
 
 @Controller('personas')
 export class PersonasController {
   constructor(private readonly personasService: PersonasService) {}
-
   @Post()
-  create(@Body() createPersonaDto: CreatePersonaDto) {
+  create(@Body() createPersonaDto: PersonaDto) {
     return this.personasService.create(createPersonaDto);
   }
 
@@ -22,8 +28,8 @@ export class PersonasController {
     return this.personasService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePersonaDto: UpdatePersonaDto) {
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updatePersonaDto: PersonaDto) {
     return this.personasService.update(+id, updatePersonaDto);
   }
 

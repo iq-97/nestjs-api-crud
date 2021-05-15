@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { PersonasModule } from './personas/personas.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Connection } from 'typeorm';
 
 @Module({
   imports: [
@@ -11,10 +12,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       port: 3306,
       username: 'root',
       password: 'root',
-      database: 'my_db_flask',
-      entities: [],
+      database: 'my_db',
+      autoLoadEntities: true,
       synchronize: true,
-    })
+    }),
   ],
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private connection: Connection) {}
+}
